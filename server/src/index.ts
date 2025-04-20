@@ -1,6 +1,8 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import db from "./db/models";
+import env from "./config/env.config";
 
 dotenv.config();
 
@@ -11,8 +13,8 @@ app.use(
     origin: "*",
   })
 );
-const port = 8080;
-
+const port = env.PORT;
+db.sequelize.sync();
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + Typescript server");
 });

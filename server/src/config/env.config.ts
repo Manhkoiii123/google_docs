@@ -11,7 +11,8 @@
 // ) {
 //   throw new Error("Environment variables missing.");
 // }
-
+import dotenv from "dotenv";
+dotenv.config();
 const env = {
   NODE_ENV: process.env.NODE_ENV,
   HOST: process.env.HOST,
