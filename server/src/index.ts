@@ -3,11 +3,14 @@ import dotenv from "dotenv";
 import cors from "cors";
 import db from "./db/models";
 import env from "./config/env.config";
+import router from "./routes";
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(router);
 app.use(
   cors({
     origin: "*",
