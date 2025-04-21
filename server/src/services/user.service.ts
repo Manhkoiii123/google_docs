@@ -72,6 +72,63 @@ class UserService {
       },
     });
   };
+  public findUserById = async (id: number): Promise<User | null> => {
+    const user = await User.findByPk(id);
+    return user;
+  };
+  public resetPassword = async (user: User) => {
+    const passwordResetToken = jwt.sign(
+      { id: user.id, email: user.email },
+      "password_reset",
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    await user.update({ passwordResetToken });
+
+    //send password reset email method should be called
+    // await this.sendPasswordResetEmail(user);
+  };
+  public findUserByPasswordResetToken = async (
+    email: string,
+    passwordResetToken: string
+  ): Promise<User | null> => {
+    const user = await User.findOne({
+      where: {
+        email,
+        passwordResetToken,
+      },
+    });
+
+    return user;
+  };
+  public updatePassword = async (user: User, password: string) => {
+    const salt = await genSalt();
+    const hashedPassword = await hash(password, salt);
+    await user.update({
+      password: hashedPassword,
+    });
+  };
+  public findUserByVerificationToken = async (
+    email: string,
+    verificationToken: string
+  ): Promise<User | null> => {
+    const user = await User.findOne({
+      where: {
+        email,
+        verificationToken,
+      },
+    });
+
+    return user;
+  };
+
+  public updateIsVerified = async (user: User, isVerified: boolean) => {
+    await user.update({
+      isVerified,
+    });
+  };
 }
 
 const userService = new UserService();
