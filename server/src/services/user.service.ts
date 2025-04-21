@@ -25,7 +25,7 @@ class UserService {
       from: "manhtranduc0202@gmail.com",
       to: user.email,
       subject: "Welcome to Google Docs",
-      text: `click the following link to verify your email : http://localhost:3000/user/verify-email/${user.verificationToken}`,
+      text: `click the following link to verify your email : http://localhost:5173/user/verify-email/${user.verificationToken}`,
     };
 
     await mailservice.sendMail(mail);
@@ -35,7 +35,7 @@ class UserService {
       from: "manhtranduc0202@gmail.com",
       to: user.email,
       subject: "Reset your password!",
-      text: `http://localhost:3000/user/reset-email/${user.passwordResetToken}`,
+      text: `http://localhost:5173/user/reset-email/${user.passwordResetToken}`,
     };
 
     await mailservice.sendMail(mail);
