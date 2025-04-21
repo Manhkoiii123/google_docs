@@ -65,6 +65,13 @@ class UserService {
 
     return refreshToken != null;
   };
+  public logoutUser = async (userId: number) => {
+    await RefreshToken.destroy({
+      where: {
+        userId,
+      },
+    });
+  };
 }
 
 const userService = new UserService();

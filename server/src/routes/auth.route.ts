@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { authValidator } from "../validators/auth.validator";
 import { authController } from "../controllers/auth/auth.controller";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
@@ -12,6 +13,6 @@ router.post(
   authController.refreshToken
 );
 
-// router.delete("/logout", authenticate, authController.logout);
+router.delete("/logout", authenticate, authController.logout);
 
 export default router;

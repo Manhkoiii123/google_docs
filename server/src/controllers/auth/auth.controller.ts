@@ -47,6 +47,14 @@ class AuthController {
       }
     );
   });
+  public logout = catchAsync(async (req: Request, res: Response) => {
+    if (!req.user) return res.sendStatus(401);
+
+    const userId = parseInt(req.user.id);
+    await userService.logoutUser(userId);
+
+    return res.sendStatus(200);
+  });
 }
 const authController = new AuthController();
 
