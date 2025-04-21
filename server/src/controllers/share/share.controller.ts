@@ -4,6 +4,7 @@ import catchAsync from "../../middleware/catch-async";
 import { Document } from "../../db/models/document.model";
 import { User } from "../../db/models/user.model";
 import { DocumentUser } from "../../db/models/document-user.model";
+import { mailservice } from "../../services/mail.service";
 
 class ShareController {
   public create = catchAsync(async (req: Request, res: Response) => {
@@ -45,7 +46,7 @@ class ShareController {
     };
 
     //call mailservice to send email
-    // await mailservice.sendMail(mail);
+    await mailservice.sendMail(mail);
 
     return res.status(201).json(documentUser);
   });
