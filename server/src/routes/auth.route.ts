@@ -6,11 +6,11 @@ const router = Router();
 
 router.post("/login", authValidator.login, authController.login);
 
-// router.post(
-//   "/refresh-token",
-//   authValidator.refreshToken,
-//   authController.refreshToken
-// );
+router.post(
+  "/refresh-token",
+  authValidator.refreshToken,
+  authController.refreshToken
+);
 
 // router.delete("/logout", authenticate, authController.logout);
 
