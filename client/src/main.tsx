@@ -1,10 +1,40 @@
-import { StrictMode } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/login/index.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      {/* <AuthProvider> */}
+      {/* <ToastProvider> */}
+      <Routes>
+        <Route path="/" element={<h1>I am Home Page</h1>} />
+        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/login" element={<Login />} />
+        {/* <Route path="/user/verify-email/:token" element={<VerifyEmail />} />
+        <Route
+          path="/document/create"
+          element={<AuthRoute element={<Create />} />}
+        />
+        <Route
+          path="/document/:id"
+          element={
+            <AuthRoute
+              element={
+                <DocumentProvider>
+                  <EditorProvider>
+                    <Document />
+                  </EditorProvider>
+                </DocumentProvider>
+              }
+            />
+          }
+        /> */}
+      </Routes>
+      {/* </ToastProvider> */}
+      {/* </AuthProvider> */}
+    </BrowserRouter>
+  </React.StrictMode>
 );
