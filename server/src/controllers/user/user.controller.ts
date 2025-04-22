@@ -21,7 +21,7 @@ class UserController {
 
     jwt.verify(
       verificationToken,
-      "verify_email",
+      "verify_sercet",
       async (err: VerifyErrors | null, decoded: unknown) => {
         if (err) return res.sendStatus(403);
         try {
