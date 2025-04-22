@@ -3,17 +3,20 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/index.tsx";
+import { AuthProvider } from "./contexts/auth-context.tsx";
+import { ToastProvider } from "./contexts/toast-context.tsx";
+import Register from "./pages/register/index.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <AuthProvider> */}
-      {/* <ToastProvider> */}
-      <Routes>
-        <Route path="/" element={<h1>I am Home Page</h1>} />
-        {/* <Route path="/register" element={<Register />} /> */}
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/user/verify-email/:token" element={<VerifyEmail />} />
+      <AuthProvider>
+        <ToastProvider>
+          <Routes>
+            <Route path="/" element={<h1>I am Home Page</h1>} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            {/* <Route path="/user/verify-email/:token" element={<VerifyEmail />} />
         <Route
           path="/document/create"
           element={<AuthRoute element={<Create />} />}
@@ -32,9 +35,9 @@ createRoot(document.getElementById("root")!).render(
             />
           }
         /> */}
-      </Routes>
-      {/* </ToastProvider> */}
-      {/* </AuthProvider> */}
+          </Routes>
+        </ToastProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

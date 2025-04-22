@@ -89,3 +89,5 @@ const useAuth = () => {
     refreshAccessToken,
   };
 };
+
+export default useAuth;

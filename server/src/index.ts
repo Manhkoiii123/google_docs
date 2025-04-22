@@ -12,12 +12,13 @@ const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(errorHandler);
-app.use(router);
 app.use(
   cors({
     origin: "*",
   })
 );
+app.use(router);
+
 const port = env.PORT;
 db.sequelize.sync();
 app.get("/", (req: Request, res: Response) => {

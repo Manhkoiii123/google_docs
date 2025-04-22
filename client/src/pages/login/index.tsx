@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TextField from "../../components/atoms/text-field/text-field";
 import useWindowSize from "../../hooks/use-window-size";
 import Logo from "../../components/atoms/logo";
 import validator from "validator";
 import AuthService from "../../services/auth-service";
+import useAuth from "../../hooks/use-auth";
+import { ToastContext } from "../../contexts/toast-context";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { widthStr, heightStr } = useWindowSize();
+  const { login } = useAuth();
+  const { success, error } = useContext(ToastContext);
   const [email, setEmail] = useState("");
   const [emailErrors, setEmailErros] = useState<Array<string>>([]);
   const [password, setPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState<Array<string>>([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const validate = () => {
     setEmailErros([]);
     setPasswordErrors([]);
@@ -36,11 +42,11 @@ const Login = () => {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         response.data;
 
-      // login(newAccessToken, newRefreshToken);
-      // success("Successfully logged in! ");
-      // navigate("/document/create");
+      login(newAccessToken, newRefreshToken);
+      success("Successfully logged in! ");
+      navigate("/document/create");
     } catch (err) {
-      // error("Incorrect username or password");
+      error("Incorrect username or password");
     } finally {
       setLoading(false);
     }
