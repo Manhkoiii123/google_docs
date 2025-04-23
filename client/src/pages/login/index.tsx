@@ -1,22 +1,24 @@
-import { useContext, useState } from "react";
+import { KeyboardEvent, useContext, useState } from "react";
 import TextField from "../../components/atoms/text-field/text-field";
 import useWindowSize from "../../hooks/use-window-size";
-import Logo from "../../components/atoms/logo";
 import validator from "validator";
 import AuthService from "../../services/auth-service";
 import useAuth from "../../hooks/use-auth";
 import { ToastContext } from "../../contexts/toast-context";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/atoms/logo/logo";
+
 const Login = () => {
   const { widthStr, heightStr } = useWindowSize();
-  const { login } = useAuth();
-  const { success, error } = useContext(ToastContext);
   const [email, setEmail] = useState("");
   const [emailErrors, setEmailErros] = useState<Array<string>>([]);
   const [password, setPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState<Array<string>>([]);
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const { success, error } = useContext(ToastContext);
   const navigate = useNavigate();
+
   const validate = () => {
     setEmailErros([]);
     setPasswordErrors([]);
@@ -52,6 +54,10 @@ const Login = () => {
     }
   };
 
+  const handleOnKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") loginUser();
+  };
+
   const handleOnInputEmail = (value: string) => {
     setEmailErros([]);
     setEmail(value);
@@ -63,8 +69,9 @@ const Login = () => {
   };
   return (
     <div
+      onKeyPress={handleOnKeyPress}
+      className="w-full flex flex-col sm:justify-center items-center p-6  bg-gray-100 dark:bg-slate-900 text-primary"
       style={{ width: widthStr, height: heightStr }}
-      className="w-full flex  flex-col sm:justify-center items-center p-6   dark:bg-slate-900 text-primary"
     >
       <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded border-primary shadow-md border dark:border-0 dark:shadow-xl p-6">
         <div className="flex flex-col space-y-4">
@@ -80,7 +87,7 @@ const Login = () => {
             color="secondary"
             errors={emailErrors}
           />
-          <p className=" text-sm hover:underline font-semibold text-blue-500 text-left cursor-pointer">
+          <p className="text-sm hover:underline font-semibold text-blue-500 text-left">
             Need an account? - router to register
           </p>
           <TextField
