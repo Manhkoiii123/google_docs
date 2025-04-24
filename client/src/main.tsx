@@ -11,6 +11,7 @@ import Create from "./pages/document/create.tsx";
 import AuthRoute from "./components/molecules/auth-route/auth-route.tsx";
 import { DocumentProvider } from "./contexts/document-context.tsx";
 import Document from "./pages/document/index.tsx";
+import { EditorProvider } from "./contexts/editor-context.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -32,9 +33,9 @@ createRoot(document.getElementById("root")!).render(
                 <AuthRoute
                   element={
                     <DocumentProvider>
-                      {/* <EditorProvider> */}
-                      <Document />
-                      {/* </EditorProvider> */}
+                      <EditorProvider>
+                        <Document />
+                      </EditorProvider>
                     </DocumentProvider>
                   }
                 />

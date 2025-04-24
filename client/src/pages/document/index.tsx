@@ -4,6 +4,7 @@ import useDocument from "../../hooks/use-document";
 import DocumentHeader from "../../components/organisms/document-header/document-header";
 import { useContext, useEffect, useRef } from "react";
 import { DocumentContext } from "../../contexts/document-context";
+import DocumentEditor from "../../components/organisms/document-editor/document-editor";
 
 const Document = () => {
   const { heightStr, widthStr } = useWindowSize();
@@ -38,7 +39,7 @@ const Document = () => {
               style={{ width: widthStr }}
               className="h-full w-full overflow-auto space-y-4 flex flex-col items-center p-4"
             >
-              {/* <DocumentEditor /> */}
+              <DocumentEditor />
             </div>
           </div>
         </>

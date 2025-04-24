@@ -1,5 +1,6 @@
 import { MutableRefObject } from "react";
 import DocumentMenuBar from "../../molecules/document-menu-bar/document-menu-bar";
+import EditorToolbar from "../../molecules/editor-toolbar/editor-toolbar";
 
 interface DocumentHeaderProps {
   documentHeaderRef: MutableRefObject<null | HTMLDivElement>;
@@ -12,7 +13,7 @@ const DocumentHeader = ({ documentHeaderRef }: DocumentHeaderProps) => {
       className="border-b w-full bg-white flex flex-col"
     >
       <DocumentMenuBar />
-      {/* <EditorToolbar /> */}
+      <EditorToolbar />
     </div>
   );
 };
