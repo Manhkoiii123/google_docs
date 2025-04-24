@@ -1,43 +1,25 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import db from "./db/models";
-import env from "./config/env.config";
-import router from "./routes";
-import errorHandler from "./middleware/error-handler";
 import http from "http";
+import app from "./index";
 import { Server } from "socket.io";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import documentService from "./services/document.service";
 import SocketEvent from "./types/enums/socket-events-enum";
-dotenv.config();
 
-const app: Express = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(errorHandler);
-app.use(
-  cors({
-    origin: "*",
-  })
-);
-app.use(router);
+const port = 8080;
+
 const server = http.createServer(app);
+
 const io = new Server(server, {
   cors: {
     origin: "*",
     methods: "*",
   },
 });
-const port = env.PORT;
-db.sequelize.sync();
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + Typescript server");
+
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
 
-app.listen(port, () => {
-  console.log(`server is listening on port : ${port}`);
-});
 io.on("connection", (socket) => {
   const accessToken = socket.handshake.query.accessToken as string | undefined;
   const documentId = socket.handshake.query.documentId as string | undefined;
@@ -94,4 +76,3 @@ io.on("connection", (socket) => {
     );
   }
 });
-export default app;
